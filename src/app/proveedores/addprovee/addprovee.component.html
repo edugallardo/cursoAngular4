@@ -1,0 +1,117 @@
+<div class="row">
+  <div class="col col-md"></div>
+  <div class="col-10 col-md-8">
+    <h2>Añadir nuevo proveedor</h2>
+    <form (ngSubmit)="onSubmit()" #formpro="ngForm">
+        <div class="form-group">
+          <label>Nombre</label>
+          <input type="text"
+                 class="form-control"
+                 id="nombre"
+                 name="nombre"
+                 ngModel>
+        </div>
+        <div class="form-group">
+          <label>C.I.F.</label>
+          <input type="text"
+                 class="form-control"
+                 id="cif"
+                 name="cif"
+                 ngModel>
+        </div>
+        <div class="form-group">
+          <label>Dirección</label>
+          <input type="text"
+                 class="form-control"
+                 id="direccion"
+                 name="direccion"
+                 ngModel>
+        </div>
+        <div class="form-group">
+          <label>Código Postal</label>
+          <input type="text"
+                 class="form-control"
+                 id="cp"
+                 name="cp"
+                 ngModel>
+        </div>
+        <div class="form-group">
+          <label>Localidad</label>
+          <input type="text"
+                 class="form-control"
+                 id="localidad"
+                 name="localidad"
+                 ngModel>
+        </div>
+
+        <!-- Añadimos los valores del array de addprovee.ts a un option (seleccionable) -->
+        <div class="form-group">
+          <label for="provincia">Provincia</label>
+          <select class="form-control"
+                  id="provincia"
+                  ngModel
+                  name="provincia">
+                  <option value="">Seleccione la provincia</option>
+                  <option *ngFor="let provincia of provincias"
+                  [value]="provincia">{{provincia}} </option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label>Teléfono</label>
+          <input type="number"
+                 class="form-control"
+                 id="telefono"
+                 name="telefono"
+                 ngModel>
+        </div>
+        <div class="form-group">
+          <label>Correo Electrónico</label>
+          <!-- Añadimos 2 iconos, que con ngIf, sólo se activarán si el campo está
+               bien o mal-->
+          <i class="fa fa-check-circle check"
+              *ngIf="email.valid"></i>
+          <i class="fa fa-exclamation-circle uncheck"
+              *ngIf="email.invalid && email.touched"></i>
+          <input type="text"
+                 class="form-control"
+                 id="email"
+                 name="email"
+                 ngModel
+                 required
+                 email
+                 #email="ngModel">
+            <!-- Añadimos un párrafo, que sólo será visible según el ngIf-->
+            <p class="alert alert-danger"
+                  *ngIf="email.invalid && email.touched">
+                  Por favor, introduzca una dirección de correo válida
+            </p>
+        </div>
+        <div class="form-group">
+          <label>Persona de contacto</label>
+          <input type="text"
+                 class="form-control"
+                 id="contacto"
+                 name="contacto"
+                 ngModel>
+        </div>
+      <button type="submit"
+                    class="btn btn-success"
+                    [disabled]="!formpro.valid"> <!-- Se envía si es válido-->
+                    Añadir Proveedor    <!-- Para evitar el [disabled] usamos !formpro-->
+      </button>
+      <p class="alert alert-danger"
+            *ngIf="!formpro.valid"> <!-- Mensaje final, si falta algún campo *-->
+              Por favor, complete todos los campos obligatorios
+      </p>
+    </form>
+     <hr>
+     <!-- formpro = Id del form;   controls = el control;   email = el campo;    dirty = efecto;-->
+    <h4>Estado dirty: {{ formpro.controls.email.dirty}}</h4> <!-- Está en false, si se toca es true-->
+    <h4>Estado pristine: {{ formpro.controls.email.pristine}}</h4> <!--Está en true, si se toca es false-->
+    <h4>Estado touched: {{ formpro.controls.email.touched}}</h4><!-- Está en false hasta que hagamos FOCUS-->
+    <h4>Estado valid: {{ formpro.controls.email.valid}}</h4> <!-- Esta true si el formato es válido-->
+    <h4>Estado invalid: {{ formpro.controls.email.invalid}}</h4> <!-- Está false si el formato es válido-->
+  </div>
+  <div class="col col-md"></div>
+</div>
